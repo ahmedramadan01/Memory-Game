@@ -10,3 +10,6 @@ This game simply checks if you have a good memory or not.it rates you through gr
 3. You can click restar button to begain again.
 4. The best size to play the game not lower than 500px.
 
+## Credits
+me is the author of this project.
+
