@@ -85,7 +85,8 @@ body {
 }
 
 .fa {
-	transform: inherit; /*solved github issue chrom on mac*/
+	/*transform: inherit; /*solved github issue chrom on mac*/
+	transform:rotateY(360deg);
 }
 .fa-angle-double-down {
 	display:block;
