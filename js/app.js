@@ -133,15 +133,10 @@ function makeClick(card){
 	    time.classList.add('done');
 
 		if(userClicks >= 30 && userClicks <= 50){
-			document.getElementById('star-five').firstElementChild.style.color='white';
+			document.getElementById('star-three').firstElementChild.style.color='white';
 			
 		}
-		if(userClicks >= 50 && userClicks <= 60){
-			document.getElementById('star-four').firstElementChild.style.color='white';
-		}
-
 		if(userClicks >= 65 && userClicks <= 80){
-			document.getElementById('star-three').firstElementChild.style.color='white';
 			document.getElementById('star-two').firstElementChild.style.color='white';
 		}
 		if(!card.classList.contains('flipped')){
