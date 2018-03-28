@@ -45,9 +45,9 @@ function reset(){
 	userClicks = 0;
 	starGreen();
 	for(let j = 0; j < cardCollections.length; j++){
-			cardCollections[j].classList.remove('flipped');
-			cardCollections[j].style.backgroundColor ='cyan';
-		}
+		cardCollections[j].classList.remove('flipped');
+		cardCollections[j].style.backgroundColor ='cyan';
+	}
 	collectGreen =[];
 	clickedCards = [];    
 }
@@ -101,11 +101,10 @@ function randomAiconsAgain(){
 	    while(usednums.includes(x)){
 		    x = getRandomInt(num)
 	    }
-	usednums.push(x);
-    let randomIcon = icons[x];
-	backIcons[i].lastElementChild.classList.add('fa',randomIcon);
-  }
-
+		usednums.push(x);
+    	let randomIcon = icons[x];
+		backIcons[i].lastElementChild.classList.add('fa',randomIcon);
+  	}
 }
 
 /*to remove any class in backIcons' last child*/
@@ -150,10 +149,10 @@ function makeClick(card){
 		card.classList.add('flipped');
 		var clickedCardId = card.id;
 		clickedCards.push(clickedCardId);
-		if(clickedCards.length == 2){
-			setTimeout(function(){ /* waiting 500ms then call matching*/
+		if(clickedCards.length % 2 === 0){
+			setTimeout(function(){ /* waiting 1000ms then call matching*/
             matching();
-            }, 500);
+            }, 1000);
 		}
 
 
@@ -165,41 +164,44 @@ for (var i = 0; i < cardCollections.length; i++) {
 	makeClick(cardCollections[i]);
 }
 
-var matchingCards= [];/*only two cards to be compared*/
+var matchingCards= [];/*only two cards to be matched*/
 var collectGreen =[];/*keep track of the same pair of cards*/
 
 /* compare the two clicked cards*/
 function matching(){
-	if(document.getElementById(clickedCards[0]).childNodes[3].lastElementChild.classList.value != document.getElementById(clickedCards[1]).childNodes[3].lastElementChild.classList.value){
-		document.getElementById(clickedCards[0]).classList.remove('flipped');
-		document.getElementById(clickedCards[1]).classList.remove('flipped');
-		clickedCards = [];
-    }
-    else{
-    	matchingCards.push(document.getElementById(clickedCards[0]),document.getElementById(clickedCards[1]));
-    	collectGreen.push(document.getElementById(clickedCards[0]),document.getElementById(clickedCards[1]));
-    	if(collectGreen.length == 16){
-    		setTimeout(function(){
-            document.getElementById('play-again').style.top='0px';
-            }, 100);
-            document.getElementById('your-seconds').innerHTML+=timer.innerHTML + 'sec';
-            time.innerHTML= time.innerHTML;
-	        time.classList.remove('done');
-	        clearInterval(intervalID);
+	for(let i= 0; i < clickedCards.length;i+=2){
+		if(i === clickedCards.length - 1){
+			return;
+		}
+		if(document.getElementById(clickedCards[i]).childNodes[3].lastElementChild.classList.value != document.getElementById(clickedCards[i+1]).childNodes[3].lastElementChild.classList.value){
+			document.getElementById(clickedCards[i]).classList.remove('flipped');
+			document.getElementById(clickedCards[i+1]).classList.remove('flipped');
+			//clickedCards = [];
+			clickedCards.splice(i,2);
     	}
-    	if(matchingCards.length == 2){
-    	    for(let i = 0; matchingCards.length > i;i++){
-    		    matchingCards[i].style.backgroundColor="#26D11D";
+    	else{
+    		matchingCards.push(document.getElementById(clickedCards[i]),document.getElementById(clickedCards[i+1]));
+    		collectGreen.push(document.getElementById(clickedCards[i]),document.getElementById(clickedCards[i+1]));
+    		if(collectGreen.length == 16){
+    			setTimeout(function(){
+            	document.getElementById('play-again').style.top='0px';
+            	}, 100);
+            	document.getElementById('your-seconds').innerHTML+=timer.innerHTML + 'sec';
+            	time.innerHTML= time.innerHTML;
+	        	time.classList.remove('done');
+	        	clearInterval(intervalID);
+    		}
+    		if(matchingCards.length == 2){
+    	    	for(let i = 0; matchingCards.length > i;i++){
+    		    	matchingCards[i].style.backgroundColor="#26D11D";
     		    
-    	    }
-        }
-        console.log(matchingCards);
-        console.log(matchingCards.length);
-        matchingCards = [];
-    	clickedCards = [];
+    	    	}
+        	}
+        	matchingCards = [];
+    		clickedCards.splice(i,2);
 
-    }
-
+    	}
+  	}
 }
 
 document.getElementById("dbl-arrow").animate([
