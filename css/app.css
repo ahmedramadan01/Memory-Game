@@ -83,6 +83,10 @@ body {
 #play-again-margin {
 	margin-top: 30px;
 }
+
+.fa {
+	transform: inherit; /*solved github issue chrom on mac*/
+}
 .fa-angle-double-down {
 	display:block;
 	margin-top: 25px;
